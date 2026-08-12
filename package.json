@@ -1,0 +1,77 @@
+{
+  "name": "msforms-api",
+  "version": "0.1.0",
+  "description": "AI-native Microsoft Forms automation — inspect structure, resolve branching, validate answers, upload files, and submit responses",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maxim-Mazurok/msforms-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Maxim-Mazurok/msforms-api/issues"
+  },
+  "homepage": "https://github.com/Maxim-Mazurok/msforms-api#readme",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "vitest run",
+    "build": "tsc --project tsconfig.build.json && node scripts/add-shebangs.js",
+    "type-check": "tsc --noEmit",
+    "test:unit": "vitest run tests/unit",
+    "format-check": "prettier --check .",
+    "format": "prettier --write .",
+    "spell-check": "npx -y cspell 'src/**/*.ts' 'tests/**/*.ts' '.github/**/*.yml' '*.md' server.json package.json 'scripts/*.js' --no-progress",
+    "mcp": "npx -y tsx src/mcp-server.ts",
+    "prepublishOnly": "npm run format-check && npm run spell-check && npm run type-check && npm test && npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "microsoft-forms",
+    "automation",
+    "cli",
+    "sdk"
+  ],
+  "mcpName": "io.github.Maxim-Mazurok/msforms-api",
+  "author": {
+    "name": "Maxim Mazurok",
+    "email": "maxim@mazurok.com",
+    "url": "https://maxim.mazurok.com"
+  },
+  "license": "MIT",
+  "type": "commonjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js"
+    }
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "bin": {
+    "msforms-api": "dist/cli.js",
+    "msforms-api-mcp": "dist/mcp-server.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/core": "^2.0.0",
+    "@modelcontextprotocol/server": "^2.0.0",
+    "commander": "^15.0.0",
+    "playwright": "^1.62.1",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/client": "^2.0.0",
+    "@types/node": "^26.2.0",
+    "prettier": "^3.9.6",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.10"
+  }
+}

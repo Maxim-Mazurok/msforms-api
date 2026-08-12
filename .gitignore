@@ -1,0 +1,15 @@
+dist/
+node_modules/
+.tmp_*
+.env
+.env.*
+!.env.example
+.npmrc
+coverage/
+playwright-report/
+test-results/
+*.log
+*.tgz
+.DS_Store
+.idea/
+.vscode/

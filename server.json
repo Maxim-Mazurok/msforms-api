@@ -1,0 +1,50 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.Maxim-Mazurok/msforms-api",
+  "title": "Microsoft Forms API",
+  "description": "Inspect, validate, upload, and submit Microsoft Forms responses",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/Maxim-Mazurok/msforms-api",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "msforms-api",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "runtimeHint": "npx",
+      "runtimeArguments": [
+        { "type": "positional", "value": "-y" },
+        { "type": "positional", "value": "-p" }
+      ],
+      "packageArguments": [
+        { "type": "positional", "value": "msforms-api-mcp" }
+      ],
+      "environmentVariables": [
+        {
+          "name": "MSFORMS_PROFILE_DIRECTORY",
+          "description": "Persistent browser profile directory override",
+          "isRequired": false,
+          "isSecret": false
+        },
+        {
+          "name": "MSFORMS_BROWSER_CHANNEL",
+          "description": "Browser channel: chrome or msedge",
+          "isRequired": false,
+          "isSecret": false
+        },
+        {
+          "name": "MSFORMS_HEADLESS",
+          "description": "Set to false to show operational browser windows",
+          "isRequired": false,
+          "isSecret": false
+        }
+      ]
+    }
+  ]
+}
