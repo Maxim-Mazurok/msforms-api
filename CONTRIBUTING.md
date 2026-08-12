@@ -53,6 +53,17 @@ npm test
 npm run build
 ```
 
+## Releases
+
+Pushes to `main` run `semantic-release` after CI passes. Conventional Commit
+subjects may optionally start with the required `Ⓜ ` AI-attribution prefix.
+
+npm trusted publishing must use the GitHub Actions publisher with owner
+`Maxim-Mazurok`, repository `msforms-api`, workflow `ci.yml`, and no environment
+restriction. The workflow uses npm OIDC authentication and publishes provenance
+without a long-lived npm token. Publishing the GitHub release then triggers the
+MCP Registry workflow.
+
 Tests must not submit live forms. Live API tests belong in explicit manual
 verification using a form owned by the tester.
 

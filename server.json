@@ -3,7 +3,7 @@
   "name": "io.github.Maxim-Mazurok/msforms-api",
   "title": "Microsoft Forms API",
   "description": "Inspect, validate, upload, and submit Microsoft Forms responses",
-  "version": "0.2.0",
+  "version": "0.0.0",
   "repository": {
     "url": "https://github.com/Maxim-Mazurok/msforms-api",
     "source": "github"
@@ -13,7 +13,7 @@
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "msforms-api",
-      "version": "0.2.0",
+      "version": "0.0.0",
       "transport": {
         "type": "stdio"
       },

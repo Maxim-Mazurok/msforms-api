@@ -27,6 +27,8 @@ jobs:
 
       - name: Publish server
         run: |
+          version="${GITHUB_REF_NAME#v}"
+          sed -i "s/\"version\": \"0.0.0\"/\"version\": \"$version\"/g" server.json
           mcp-publisher login github-oidc
           mcp-publisher validate
           mcp-publisher publish
