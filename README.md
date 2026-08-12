@@ -12,7 +12,7 @@ Use it as:
 
 [<img src="https://img.shields.io/badge/VS_Code-Install_Server-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white" alt="Install in VS Code">](https://insiders.vscode.dev/redirect?url=vscode%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522microsoft-forms%2522%252C%2522command%2522%253A%2522npx%2522%252C%2522args%2522%253A%255B%2522-y%2522%252C%2522-p%2522%252C%2522msforms-api%2540latest%2522%252C%2522msforms-api-mcp%2522%255D%257D)
 [<img src="https://img.shields.io/badge/VS_Code_Insiders-Install_Server-24bfa5?style=flat-square&logo=visualstudiocode&logoColor=white" alt="Install in VS Code Insiders">](https://insiders.vscode.dev/redirect?url=vscode-insiders%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522microsoft-forms%2522%252C%2522command%2522%253A%2522npx%2522%252C%2522args%2522%253A%255B%2522-y%2522%252C%2522-p%2522%252C%2522msforms-api%2540latest%2522%252C%2522msforms-api-mcp%2522%255D%257D)
-[![Install in Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/install-mcp?name=microsoft-forms&config=%7B%22name%22%3A%22microsoft-forms%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22-p%22%2C%22msforms-api%40latest%22%2C%22msforms-api-mcp%22%5D%7D)
+[![Install in Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=microsoft-forms&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIi1wIiwibXNmb3Jtcy1hcGlAbGF0ZXN0IiwibXNmb3Jtcy1hcGktbWNwIl19)
 [![npm version](https://img.shields.io/npm/v/msforms-api?style=flat-square)](https://www.npmjs.com/package/msforms-api)
 [![CI](https://img.shields.io/github/actions/workflow/status/Maxim-Mazurok/msforms-api/ci.yml?branch=main&style=flat-square&label=CI)](https://github.com/Maxim-Mazurok/msforms-api/actions/workflows/ci.yml)
 
@@ -35,7 +35,8 @@ Use it as:
 
 ### Install in an AI tool
 
-Click an install badge above, or use this MCP configuration:
+Click an install badge above, or use this MCP configuration. For Cursor, save
+it as `~/.cursor/mcp.json`:
 
 ```json
 {
