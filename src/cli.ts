@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 import { formsActions, type ActionParameter } from "./actions.js";
 import { MicrosoftFormsClient } from "./forms-client.js";
 import { packageVersion } from "./package-metadata.js";
+import { serverInstructions } from "./server-instructions.js";
 
 interface GlobalOptions {
   browser?: "chrome" | "msedge";
@@ -78,6 +79,15 @@ async function main(): Promise<void> {
         log: (...messages) => console.error(...messages),
       });
       printResult(result, Boolean(commandOptions.compact));
+    });
+
+  program
+    .command("guide")
+    .description(
+      "Print workflow guidance and safety requirements for Microsoft Forms automation",
+    )
+    .action(() => {
+      process.stdout.write(`${serverInstructions}\n`);
     });
 
   for (const action of formsActions) {

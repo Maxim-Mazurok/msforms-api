@@ -7,8 +7,9 @@ links.
 Use it as:
 
 1. **MCP server** for AI agents and editors — recommended for most users.
-2. **CLI** for scripts and terminal workflows.
-3. **TypeScript SDK** for custom applications.
+2. **Agent skill** backed by the CLI for agents that can run shell commands.
+3. **CLI** for scripts and terminal workflows.
+4. **TypeScript SDK** for custom applications.
 
 [<img src="https://img.shields.io/badge/VS_Code-Install_Server-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white" alt="Install in VS Code">](https://insiders.vscode.dev/redirect?url=vscode%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522microsoft-forms%2522%252C%2522command%2522%253A%2522npx%2522%252C%2522args%2522%253A%255B%2522-y%2522%252C%2522-p%2522%252C%2522msforms-api%2540latest%2522%252C%2522msforms-api-mcp%2522%255D%257D)
 [<img src="https://img.shields.io/badge/VS_Code_Insiders-Install_Server-24bfa5?style=flat-square&logo=visualstudiocode&logoColor=white" alt="Install in VS Code Insiders">](https://insiders.vscode.dev/redirect?url=vscode-insiders%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522microsoft-forms%2522%252C%2522command%2522%253A%2522npx%2522%252C%2522args%2522%253A%255B%2522-y%2522%252C%2522-p%2522%252C%2522msforms-api%2540latest%2522%252C%2522msforms-api-mcp%2522%255D%257D)
@@ -32,6 +33,24 @@ Use it as:
 - [Node.js](https://nodejs.org/) 22 or later.
 - Google Chrome or Microsoft Edge. Playwright Chromium is installed
   automatically when neither is available.
+
+### Install as an agent skill
+
+The [CLI skill](SKILL.md) teaches agents how to inspect branching, prepare and
+validate answers, upload authorized files, and require explicit approval before
+submission:
+
+```bash
+npx -y skills add Maxim-Mazurok/msforms-api
+```
+
+The installer detects supported agents such as Claude Code, Cursor, GitHub
+Copilot, and Codex, then asks where to install the skill. Choose global scope to
+use it across projects.
+
+The skill runs `msforms-api` through `npx`, so it does not require a global
+package installation or MCP configuration. It is an alternative interface to
+the MCP server; both use the same CLI and SDK behavior.
 
 ### Install in an AI tool
 
@@ -127,6 +146,12 @@ Add the MCP configuration above to your client's MCP configuration file.
 `forms_submit` is marked destructive and non-idempotent. It uses MCP v2
 multi-round-trip elicitation. Declined or false confirmation never reaches
 submission code.
+
+Cross-cutting workflow and safety guidance is also available through:
+
+```bash
+npx -y -p msforms-api@latest msforms-api guide
+```
 
 ## CLI
 

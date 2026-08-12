@@ -11,6 +11,7 @@ import { z } from "zod";
 import { formsActions } from "./actions.js";
 import { MicrosoftFormsClient } from "./forms-client.js";
 import { packageName, packageVersion } from "./package-metadata.js";
+import { serverInstructions } from "./server-instructions.js";
 
 const confirmationSchema = z.object({ confirm: z.boolean() });
 
@@ -36,12 +37,7 @@ function createClient(): MicrosoftFormsClient {
 export function createMicrosoftFormsMcpServer(): McpServer {
   const server = new McpServer(
     { name: packageName, version: packageVersion },
-    {
-      instructions:
-        "Inspect forms before preparing answers. Use validate before submit. " +
-        "Never submit unless the user explicitly confirms the exact submission. " +
-        "File questions require metadata returned by forms_upload_file.",
-    },
+    { instructions: serverInstructions },
   );
   const client = createClient();
 

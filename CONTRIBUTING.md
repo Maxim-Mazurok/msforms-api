@@ -31,12 +31,17 @@ src/
   actions.ts           Shared CLI and MCP action definitions
   cli.ts               Commander adapter
   mcp-server.ts        MCP v2 stdio adapter
+  server-instructions.ts  Shared MCP and CLI workflow guidance
   types.ts             Public and raw API types
 ```
 
 The SDK owns behavior. CLI and MCP adapters consume the same action registry.
 Keep Microsoft-specific wire shapes in the core instead of duplicating them in
 adapters.
+
+`SKILL.md` is the installable, CLI-focused agent workflow. Keep its commands and
+safety requirements aligned with `server-instructions.ts` and the action
+definitions.
 
 ## Development checks
 

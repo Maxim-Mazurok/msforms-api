@@ -1,6 +1,6 @@
 {
   "name": "msforms-api",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "AI-native Microsoft Forms automation — inspect structure, resolve branching, validate answers, upload files, and submit responses",
   "repository": {
     "type": "git",
@@ -54,6 +54,7 @@
   "files": [
     "dist",
     "README.md",
+    "SKILL.md",
     "LICENSE"
   ],
   "publishConfig": {
