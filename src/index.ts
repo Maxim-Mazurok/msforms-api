@@ -31,6 +31,7 @@ export type {
   SavedResponseLink,
   SerializedAnswer,
   SubmissionResult,
+  SubmissionSaveResponseError,
   SubmitOptions,
   UploadedFile,
 } from "./types.js";

@@ -147,7 +147,7 @@ export const formsActions: FormsAction[] = [
     name: "submit",
     title: "Submit Microsoft Forms Response",
     description:
-      "Validate and submit a response. This creates a permanent form response and always requires explicit user confirmation.",
+      "Validate and submit a response. This creates a permanent form response and always requires explicit user confirmation. A response-link save failure is reported separately in the successful submission result.",
     inputSchema: z.object({
       form: formSchema,
       answers: answersSchema,

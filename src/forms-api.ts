@@ -51,7 +51,7 @@ export function buildFormOperationUrl(
   collection: "forms" | "runtimeForms",
 ): string {
   return `${session.formsHost}/formapi/api/${encodeURIComponent(
-    session.tenantId,
+    session.ownerTenantId,
   )}/users/${encodeURIComponent(session.ownerId)}/${collection}('${encodeURIComponent(
     session.formId,
   )}')`;

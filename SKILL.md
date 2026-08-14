@@ -144,6 +144,12 @@ npx -y -p msforms-api@latest msforms-api submit \
 Add `--save-response` only when requested. Return the submission result and
 response ID to the user.
 
+A result containing `submissionStatus: "submitted"` or a `responseId` means
+the permanent response exists. Never submit it again. If
+`saveResponseStatus` is `"failed"`, report that submission succeeded, then
+retry only the idempotent `save-response` command with the returned
+`responseId` and `submitDate`.
+
 ## Saved responses
 
 List response links saved to the signed-in account:
@@ -162,5 +168,5 @@ npx -y -p msforms-api@latest msforms-api save-response \
   --submit-date "2026-08-12T00:00:00.000Z"
 ```
 
-The form reference supplies tenant context for authenticated saved-response
-operations.
+The form reference supplies form-owner context for saving a response link. The
+signed-in responder identity is used when listing saved response links.

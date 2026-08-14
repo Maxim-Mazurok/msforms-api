@@ -278,11 +278,26 @@ if (!validation.valid) {
 const submission = await client.submitResponse(formUrl, answers, {
   saveResponse: true,
 });
+
+if (submission.saveResponseStatus === "failed") {
+  console.error(submission.saveResponseError);
+  await client.saveResponse(
+    formUrl,
+    submission.responseId,
+    submission.submitDate,
+  );
+}
 ```
 
 `submitResponse()` is direct at SDK level. Applications using the SDK must
 implement their own user confirmation boundary. CLI requires `--confirm`; MCP
 requires elicitation.
+
+`submissionStatus: "submitted"` or a returned `responseId` means the permanent
+response exists. A requested response-link save can fail independently. In
+that case, `saveResponseStatus` is `"failed"`, submission details remain in the
+result, and callers must not submit again. Retry only the idempotent
+`saveResponse()` operation.
 
 ## Form structure
 
@@ -316,9 +331,9 @@ answer array. Questions skipped by branching are omitted.
 
 ## How it works
 
-Browser bootstrap exposes the anti-forgery token, server session ID, tenant,
-owner, current user, and form prefetch URL. The client combines that data with
-scoped Forms cookies for direct requests.
+Browser bootstrap exposes the anti-forgery token, server session ID, form-owner
+tenant and user, responder tenant and user, and form prefetch URL. The client
+combines that data with scoped Forms cookies for direct requests.
 
 Observed endpoint families:
 
@@ -326,8 +341,8 @@ Observed endpoint families:
 GET  /formapi/api/{tenant}/users/{owner}/light/runtimeForms('{formId}')
 POST /formapi/api/{tenant}/users/{owner}/forms('{formId}')/responses
 POST /formapi/api/{tenant}/users/{owner}/runtimeForms('{formId}')/questions('{questionId}')/CreateUploadSession
-POST /formapi/api/{tenant}/users/{user}/saveResponseLink
-GET  /formapi/api/{tenant}/users/{user}/getResponseLinks
+POST /formapi/api/{ownerTenant}/users/{owner}/saveResponseLink
+GET  /formapi/api/{responderTenant}/users/{responder}/getResponseLinks
 ```
 
 The normalized model retains raw objects so newly introduced Forms properties

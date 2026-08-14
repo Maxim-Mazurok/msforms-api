@@ -32,11 +32,11 @@ export interface FormsApiSession {
   formsHost: string;
   multiUserIdentifier: string;
   ownerId: string;
+  ownerTenantId: string;
   responsePageUrl: string;
+  responderId: string;
+  responderTenantId: string;
   serverSessionId: string;
-  tenantId: string;
-  userId: string;
-  userTenantId: string;
 }
 
 export interface OpenFormPage {
@@ -107,7 +107,7 @@ async function waitForFormsServerInformation(
 function parseFormApiUrl(prefetchFormUrl: string): {
   formApiUrl: string;
   ownerId: string;
-  tenantId: string;
+  ownerTenantId: string;
 } {
   const url = new URL(prefetchFormUrl);
   const pathMatch = url.pathname.match(
@@ -120,8 +120,8 @@ function parseFormApiUrl(prefetchFormUrl: string): {
   }
   return {
     formApiUrl: prefetchFormUrl,
-    tenantId: decodeURIComponent(pathMatch[1]),
     ownerId: decodeURIComponent(pathMatch[2]),
+    ownerTenantId: decodeURIComponent(pathMatch[1]),
   };
 }
 
@@ -151,7 +151,8 @@ async function createSession(
     .join("; ");
   const multiUserIdentifier =
     cookies.find((cookie) => cookie.name === "MUID")?.value ?? "";
-  const { formApiUrl, ownerId, tenantId } = parseFormApiUrl(prefetchFormUrl);
+  const { formApiUrl, ownerId, ownerTenantId } =
+    parseFormApiUrl(prefetchFormUrl);
 
   return {
     antiForgeryToken,
@@ -161,11 +162,11 @@ async function createSession(
     formsHost: new URL(prefetchFormUrl).origin,
     multiUserIdentifier,
     ownerId,
+    ownerTenantId,
     responsePageUrl,
+    responderId: userInfo.UserId,
+    responderTenantId: userInfo.TenantId,
     serverSessionId,
-    tenantId,
-    userId: userInfo.UserId,
-    userTenantId: userInfo.TenantId,
   };
 }
 

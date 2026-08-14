@@ -1,5 +1,6 @@
 import { validateAndSerializeAnswers } from "./answers.js";
 import {
+  MicrosoftFormsApiError,
   MicrosoftFormsAuthenticationError,
   MicrosoftFormsValidationError,
 } from "./errors.js";
@@ -21,6 +22,7 @@ import type {
   MicrosoftFormsClientOptions,
   SavedResponseLink,
   SubmissionResult,
+  SubmissionSaveResponseError,
   SubmitOptions,
   UploadedFile,
 } from "./types.js";
@@ -28,6 +30,17 @@ import type {
 interface CachedSession {
   acquiredAt: number;
   session: FormsApiSession;
+}
+
+function createSubmissionSaveResponseError(
+  error: unknown,
+): SubmissionSaveResponseError {
+  return {
+    message: error instanceof Error ? error.message : String(error),
+    ...(error instanceof MicrosoftFormsApiError
+      ? { status: error.status }
+      : {}),
+  };
 }
 
 export class MicrosoftFormsClient {
@@ -162,10 +175,40 @@ export class MicrosoftFormsClient {
       );
     }
 
-    const savedResponse = options.saveResponse
-      ? await this.saveResponse(formReference, responseId, submitDate)
-      : undefined;
-    return { responseId, submitDate, response, savedResponse };
+    if (!options.saveResponse) {
+      return {
+        responseId,
+        submissionStatus: "submitted",
+        submitDate,
+        response,
+        saveResponseStatus: "not-requested",
+      };
+    }
+
+    try {
+      const savedResponse = await this.saveResponse(
+        formReference,
+        responseId,
+        submitDate,
+      );
+      return {
+        responseId,
+        submissionStatus: "submitted",
+        submitDate,
+        response,
+        saveResponseStatus: "saved",
+        savedResponse,
+      };
+    } catch (error) {
+      return {
+        responseId,
+        submissionStatus: "submitted",
+        submitDate,
+        response,
+        saveResponseStatus: "failed",
+        saveResponseError: createSubmissionSaveResponseError(error),
+      };
+    }
   }
 
   public async saveResponse(
@@ -177,8 +220,8 @@ export class MicrosoftFormsClient {
       formReference,
       (session) =>
         `${session.formsHost}/formapi/api/${encodeURIComponent(
-          session.userTenantId,
-        )}/users/${encodeURIComponent(session.userId)}/saveResponseLink`,
+          session.ownerTenantId,
+        )}/users/${encodeURIComponent(session.ownerId)}/saveResponseLink`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json;charset=UTF-8" },
@@ -200,8 +243,8 @@ export class MicrosoftFormsClient {
       formReference,
       (session) =>
         `${session.formsHost}/formapi/api/${encodeURIComponent(
-          session.userTenantId,
-        )}/users/${encodeURIComponent(session.userId)}/getResponseLinks`,
+          session.responderTenantId,
+        )}/users/${encodeURIComponent(session.responderId)}/getResponseLinks`,
     );
     return Array.isArray(response) ? response : (response.value ?? []);
   }

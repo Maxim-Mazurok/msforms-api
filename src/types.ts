@@ -147,11 +147,19 @@ export interface SubmitOptions {
   submitLanguage?: string;
 }
 
+export interface SubmissionSaveResponseError {
+  message: string;
+  status?: number;
+}
+
 export interface SubmissionResult {
   responseId: string;
+  submissionStatus: "submitted";
   submitDate: string;
   response: Record<string, unknown>;
+  saveResponseStatus: "failed" | "not-requested" | "saved";
   savedResponse?: Record<string, unknown>;
+  saveResponseError?: SubmissionSaveResponseError;
 }
 
 export interface SavedResponseLink {

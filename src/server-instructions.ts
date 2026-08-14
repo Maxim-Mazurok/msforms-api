@@ -22,6 +22,8 @@ msforms-api: Microsoft Forms inspection and response automation.
 - Never submit merely because the form is valid or the user asked for help filling it out.
 - Never upload a local file without authorization.
 - Save the response link only when requested.
+- A forms_submit result with submissionStatus "submitted" or a responseId means the permanent response exists. Never resubmit it.
+- If saveResponseStatus is "failed", report the successful submission and retry only the idempotent forms_save_response operation with the returned responseId and submitDate.
 - Authentication data stays internal. Do not request or expose cookies, anti-forgery tokens, or browser storage.
 
 ## Authentication
